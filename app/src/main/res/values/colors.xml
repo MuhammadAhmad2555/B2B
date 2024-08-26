@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="DarkBlue">#012552</color>
+    <color name="LightBlue">#012552</color>
+    <color name="TextColor">#515151</color>
+    <color name="TextColor2">#AAAAAA</color>
+    <color name="Gray">#888888</color>
+    <color name="offwhite">#F6F6F6</color>
+    <color name="offw99hite">#D9D9D9</color>
+    <color name="searchbarbackground">#F6F6F6</color>
+
+    <color name="orangepeneding">#FFA000</color>
+    <color name="lightorange">#FFE6BB</color>
+    <color name="rejectedred">#FF0000</color>
+    <color name="green">#42B977</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="dark_gray">#515151</color>
+
+
+
+</resources>

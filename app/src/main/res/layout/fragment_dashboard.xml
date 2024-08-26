@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.HomeFragments.Dashboard">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="900dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="1000dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/topbar"
+                android:padding="6dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/dashboradtext"
+                android:background="@drawable/searcbardesign"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/MeBaIc"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/EtSrJo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/circlevector"/>
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+
+                    android:id="@+id/EtSrJo"
+                    app:layout_constraintStart_toEndOf="@+id/MeBaIc"
+                    android:hint="   Search"
+                    app:layout_constraintEnd_toEndOf="@+id/createJobBtn"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:fontFamily="@font/poppinsregular"
+                    android:textColorHint="@color/Gray"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@+id/createJobBtn"
+                    android:lineHeight="21dp"
+                    android:background="@drawable/remove_default_style"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/createJobBtn"
+                    app:layout_constraintStart_toEndOf="@+id/EtSrJo"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="2dp"
+                    android:textColor="@color/white"
+                    android:padding="10dp"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:textFontWeight="600"
+                    android:fontFamily="@font/poppinsregular"
+                    android:text="Create a Job"
+                    android:gravity="center"
+                    android:background="@drawable/createbtn"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dashboradtext"
+                app:layout_constraintTop_toBottomOf="@+id/topbar"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Dashboard"
+                android:fontFamily="@font/poppinsregular"
+                android:textFontWeight="700"
+                android:textStyle="bold"
+                android:lineHeight="24dp"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/DarkBlue"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:id="@+id/progresslayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/dashboradtext"
+                android:layout_height="wrap_content">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:id="@+id/percentagetextLine"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/percentagetext"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        android:text="60%"
+                                        app:layout_constraintEnd_toStartOf="@+id/text2"
+                                        android:fontFamily="@font/poppinsregular"
+                                        android:textFontWeight="700"
+                                        android:lineHeight="30dp"
+                                        android:paddingLeft="20dp"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/dark_gray"
+                                        android:textSize="30sp"
+                                        />
+                                    <TextView
+                                        android:id="@+id/text2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="5dp"
+                                        android:fontFamily="@font/poppinsregular"
+                                        app:layout_constraintStart_toEndOf="@+id/percentagetext"
+                                        android:text="Total\nActivity"
+                                        android:textColor="@color/TextColor2"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        android:textFontWeight="700"
+                                        android:textSize="10sp"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/percentagetextLine"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/completedjobprogress"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:progress="34"
+                android:max="100"
+                android:progressTint="@color/green"
+                android:progressDrawable="@drawable/progressbarstyle"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintEnd_toStartOf="@id/progress_pending"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:id="@+id/completedjobtext"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsregular"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:paddingStart="5dp"
+                android:textSize="10sp"
+                android:textFontWeight="700"
+                android:textStyle="bold"
+                android:textColor="@color/green"
+                app:layout_constraintEnd_toStartOf="@+id/pendingjobtext"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/completedjobprogress"
+                android:text="34%"/>
+            <ProgressBar
+                android:id="@+id/progress_pending"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintStart_toEndOf="@+id/completedjobprogress"
+                android:progress="85"
+                android:progressTint="@color/orangepeneding"
+                android:progressDrawable="@drawable/progressbarstyle"
+                android:max="100"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                app:layout_constraintEnd_toStartOf="@id/progress_rejected"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/pendingjobtext"
+                app:layout_constraintEnd_toStartOf="@+id/rejectedjobtext"
+                android:textSize="10sp"
+                android:paddingStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:textFontWeight="700"
+                android:textStyle="bold"
+                android:textColor="@color/orangepeneding"
+
+                app:layout_constraintStart_toEndOf="@+id/completedjobtext"
+                app:layout_constraintTop_toBottomOf="@+id/progress_pending"
+                android:text="34%"/>
+            <ProgressBar
+                android:id="@+id/progress_rejected"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progressbarstyle"
+                android:progressTint="@color/rejectedred"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toEndOf="@+id/progress_pending"
+
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/rejectedjobtext"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="10sp"
+                android:layout_marginEnd="3dp"
+                android:textFontWeight="700"
+                android:paddingStart="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/rejectedred"
+                app:layout_constraintStart_toEndOf="@+id/pendingjobtext"
+                app:layout_constraintTop_toBottomOf="@+id/progress_rejected"
+                android:text="34%"/>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progresslayout"
+                android:layout_height="wrap_content">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+
+
+</FrameLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ForgotPasswordFragemnt"
+    app:startDestination="@id/splashScreen">
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.ark_i.b2b.Activities.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="com.ark_i.b2b.Fragments.InitialScreens.SplashScreen"
+        android:label="fragment_splash_screen2"
+        tools:layout="@layout/fragment_splash_screen">
+        <action
+            android:id="@+id/action_splashScreen_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
+        <action
+            android:id="@+id/action_splashScreen_to_jobDescriptionFragment"
+            app:destination="@id/jobDescriptionFragment" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.ark_i.b2b.Fragments.InitialScreens.loginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_jobDescriptionFragment"
+            app:destination="@id/jobDescriptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.ark_i.b2b.Fragments.InitialScreens.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_enterCodeFragment"
+            app:destination="@id/enterCodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.ark_i.b2b.Fragments.InitialScreens.WelcomeFragment"
+        android:label="fragmentwelcome"
+        tools:layout="@layout/fragmentwelcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterCodeFragment"
+        android:name="com.ark_i.b2b.Fragments.InitialScreens.EnterCodeFragment"
+        android:label="fragment_enter_code"
+        tools:layout="@layout/fragment_enter_code" >
+        <action
+            android:id="@+id/action_enterCodeFragment_to_newPasswordFragment"
+            app:destination="@id/newPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="com.ark_i.b2b.Fragments.InitialScreens.NewPasswordFragment"
+        android:label="fragment_new_password"
+        tools:layout="@layout/fragment_new_password" >
+        <action
+            android:id="@+id/action_newPasswordFragment_to_passwordChangeSuccessFragment"
+            app:destination="@id/passwordChangeSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordChangeSuccessFragment"
+        android:name="com.ark_i.b2b.Fragments.InitialScreens.PasswordChangeSuccessFragment"
+        android:label="fragment_password_change_success"
+        tools:layout="@layout/fragment_password_change_success" >
+        <action
+            android:id="@+id/action_passwordChangeSuccessFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ark_i.b2b.Fragments.HomeFragments.Dashboard"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/jobDescriptionFragment"
+        android:name="com.ark_i.b2b.Fragments.JobDescription.JobDescriptionFragment"
+        android:label="fragment_job_description"
+        tools:layout="@layout/fragment_job_description" />
+</navigation>

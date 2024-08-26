@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.InitialScreens.loginFragment">
+
+   <ScrollView
+       android:layout_width="match_parent"
+
+
+       android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="match_parent"
+        tools:context=".LoginActivity">
+
+        <!-- ImageView for the logo or image at the top -->
+        <ImageView
+            android:id="@+id/LoIm"
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:layout_height="326dp"
+
+            android:src="@drawable/loginimageplain"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/loIm"
+       />
+
+
+        <ImageView
+            android:id="@+id/loIm"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_width="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/TvEm"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LoIm"
+            android:src="@drawable/easefixlogoblue"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TvEm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loIm"
+            android:text="Username"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="14sp"
+
+            app:layout_constraintBottom_toTopOf="@+id/EdEm"/>
+        <!-- EditText for email -->
+        <EditText
+            android:id="@+id/EdEm"
+            android:layout_width="match_parent"
+            android:background="@drawable/inputfeildsdesign"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginEnd="20dp"
+            android:inputType="textPassword"
+            app:layout_constraintTop_toBottomOf="@+id/TvEm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/TvPa"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/TvPa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EdEm"
+            android:text="Password"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="14sp"
+
+            app:layout_constraintBottom_toTopOf="@+id/EtPa"/>
+
+
+        <!-- EditText for password -->
+        <EditText
+            android:id="@+id/EtPa"
+            android:layout_width="match_parent"
+            android:background="@drawable/inputfeildsdesign"
+            android:layout_height="50dp"
+            android:inputType="textPassword"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/TvPa"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/BtLo"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Button for login -->
+        <Button
+            android:id="@+id/BtLo"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/FoPaBt"
+            android:layout_marginEnd="20dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttoncorner"
+            android:text="@string/LoginText"
+
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/EtPa"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/FoPaBt"
+            android:text="@string/ForgotPasswordText"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:textColor="@color/Gray"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/BtLo"
+
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+   </ScrollView>
+</FrameLayout>
