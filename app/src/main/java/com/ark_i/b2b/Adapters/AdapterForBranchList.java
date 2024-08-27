@@ -20,15 +20,10 @@ public class AdapterForBranchList extends RecyclerView.Adapter<AdapterForBranchL
     public AdapterForBranchList(Context context, ArrayList<ModelClassForBranchList> list) {
         this.context = context;
         this.list = list;
-        dataadd();
+
     }
 
-    private void dataadd() {
-        list.add(new ModelClassForBranchList("KFC - Manchester","13, Main St. Antony, UK"));
-        list.add(new ModelClassForBranchList("DFC - Manchester","322, Main St. Antony, UK"));
-        list.add(new ModelClassForBranchList("BFC - Manchester","233, Main St. Antony, UK"));
-        list.add(new ModelClassForBranchList("SFC - Manchester","173, Main St. Antony, UK"));
-    }
+
 
     Context context;
     ArrayList<ModelClassForBranchList> list;

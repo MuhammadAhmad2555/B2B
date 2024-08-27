@@ -19,15 +19,10 @@ public class AdapterForAreaList extends RecyclerView.Adapter<AdapterForAreaList.
     public AdapterForAreaList(Context context, ArrayList<ModelClassForAreaList> list) {
         this.context = context;
         this.list = list;
-        dataadd();
+
     }
 
-    private void dataadd() {
-        list.add(new ModelClassForAreaList("London","KFC - Manchester","13, Main St. Antony, UK"));
-        list.add(new ModelClassForAreaList("UK","DFC - Manchester","322, Main St. Antony, UK"));
-        list.add(new ModelClassForAreaList("Pairs","BFC - Manchester","233, Main St. Antony, UK"));
-        list.add(new ModelClassForAreaList("Lhaore","SFC - Manchester","173, Main St. Antony, UK"));
-    }
+
 
     Context context;
     ArrayList<ModelClassForAreaList> list;

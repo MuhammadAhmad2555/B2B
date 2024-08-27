@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 
 public class BranchListFragment extends Fragment {
-    FragmentBranchListBinding binding;
+
 
     RecyclerView recyclerView;
     ArrayList<ModelClassForBranchList> list;
@@ -34,20 +34,20 @@ public class BranchListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        binding = FragmentBranchListBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        return inflater.inflate(R.layout.fragment_branch_list, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RecyclewViewSetUp(view);
+        dataadd();
 
 
     }
 
     private void RecyclewViewSetUp(View view) {
+
         recyclerView = view.findViewById(R.id.BrachListRecycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         list = new ArrayList<>();
@@ -55,5 +55,12 @@ public class BranchListFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
+    }
+
+    private void dataadd() {
+        list.add(new ModelClassForBranchList("KFC - Manchester","13, Main St. Antony, UK"));
+        list.add(new ModelClassForBranchList("DFC - Manchester","322, Main St. Antony, UK"));
+        list.add(new ModelClassForBranchList("BFC - Manchester","233, Main St. Antony, UK"));
+        list.add(new ModelClassForBranchList("SFC - Manchester","173, Main St. Antony, UK"));
     }
 }

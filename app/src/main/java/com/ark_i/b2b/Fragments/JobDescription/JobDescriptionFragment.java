@@ -16,7 +16,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -54,10 +53,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
-import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,11 +76,11 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int PICK_PDF_REQUEST = 2;
     private static final int PERMISSION_REQUEST_CODE = 100;
-    private static final int PERMISSION_REQUEST_CODE_FOR_PDF = 100;
+
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentJobDescriptionBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -96,7 +94,7 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
         RecycleSetup(view);
 
 
-        
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mappp);
         if (mapFragment != null) {
@@ -107,28 +105,29 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
         binding.branchInfoBtn.setOnClickListener(v -> showPopupWindow());
         binding.JoMiBo.setOnClickListener(v -> {
 
-            if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_MEDIA_IMAGES)
-                    != PackageManager.PERMISSION_GRANTED){
-                askPermission();
+            if(getContext()!=null){
+                if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_MEDIA_IMAGES)
+                        != PackageManager.PERMISSION_GRANTED){
+                    askPermission();
 
-            }else {
+                }else {
                     openGallery();
+                }
             }
+
+
 
 
 
 
         });
-        binding.BoxDoc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if((ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) ){
-                    openFilePicker();
-                }else {
-                    askPermission();
-                }
-
+        binding.BoxDoc.setOnClickListener(v -> {
+            if((ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) ){
+                openFilePicker();
+            }else {
+                askPermission();
             }
+
         });
 
 //--------------------------------------------------------------------------
@@ -149,27 +148,30 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
     private void renderPdfPreview(Uri pdfUri) {
         try {
             // Convert the Uri to a FileDescriptor
-            ParcelFileDescriptor fileDescriptor = getContext().getContentResolver().openFileDescriptor(pdfUri, "r");
-            if (fileDescriptor != null) {
-                PdfRenderer pdfRenderer = new PdfRenderer(fileDescriptor);
+            if(getContext()!=null){
+                ParcelFileDescriptor fileDescriptor = getContext().getContentResolver().openFileDescriptor(pdfUri, "r");
+                if (fileDescriptor != null) {
+                    PdfRenderer pdfRenderer = new PdfRenderer(fileDescriptor);
 
-                // Open the first page of the PDF
-                PdfRenderer.Page page = pdfRenderer.openPage(0);
+                    // Open the first page of the PDF
+                    PdfRenderer.Page page = pdfRenderer.openPage(0);
 
-                // Create a bitmap to render the PDF page into
-                Bitmap bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(), Bitmap.Config.ARGB_8888);
+                    // Create a bitmap to render the PDF page into
+                    Bitmap bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(), Bitmap.Config.ARGB_8888);
 
-                // Render the PDF page into the bitmap
-                page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+                    // Render the PDF page into the bitmap
+                    page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
 
-                // Set the bitmap to the ImageView to display the preview
-                binding.PDFIMAGE.setImageBitmap(bitmap);
+                    // Set the bitmap to the ImageView to display the preview
+                    binding.PDFIMAGE.setImageBitmap(bitmap);
 
-                // Close the page and PdfRenderer
-                page.close();
-                pdfRenderer.close();
-                fileDescriptor.close();
+                    // Close the page and PdfRenderer
+                    page.close();
+                    pdfRenderer.close();
+                    fileDescriptor.close();
+                }
             }
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -178,10 +180,13 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
 
 
     private void askPermission() {
+        if(getActivity()!=null){
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.READ_MEDIA_IMAGES},
+                    PERMISSION_REQUEST_CODE);
+        }
 
-        ActivityCompat.requestPermissions(getActivity(),
-                new String[]{Manifest.permission.READ_MEDIA_IMAGES},
-                PERMISSION_REQUEST_CODE);
+
     }
 
     private void openFilePicker() {
@@ -268,7 +273,10 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
 
         // Get the display dimensions to calculate the center of the screen
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+            getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+
         int screenWidth = displayMetrics.widthPixels;
 
         // Measure the popup window's width to center it
@@ -327,35 +335,27 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray routes = response.getJSONArray("routes");
-                            JSONObject route = routes.getJSONObject(0);
-                            JSONObject overviewPolyline = route.getJSONObject("overview_polyline");
-                            String encodedPolyline = overviewPolyline.getString("points");
-                            List<LatLng> polylinePoints = decodePolyline(encodedPolyline);
+                response -> {
+                    try {
+                        JSONArray routes = response.getJSONArray("routes");
+                        JSONObject route = routes.getJSONObject(0);
+                        JSONObject overviewPolyline = route.getJSONObject("overview_polyline");
+                        String encodedPolyline = overviewPolyline.getString("points");
+                        List<LatLng> polylinePoints = decodePolyline(encodedPolyline);
 
-                            // Draw the polyline
-                            PolylineOptions polylineOptions = new PolylineOptions()
-                                    .addAll(polylinePoints)
-                                    .width(10)
-                                    .color(android.graphics.Color.RED);
+                        // Draw the polyline
+                        PolylineOptions polylineOptions = new PolylineOptions()
+                                .addAll(polylinePoints)
+                                .width(10)
+                                .color(android.graphics.Color.RED);
 
-                            mMap.addPolyline(polylineOptions);
+                        mMap.addPolyline(polylineOptions);
 
-                        } catch (JSONException e) {
-                            Toast.makeText(requireActivity(), "", Toast.LENGTH_SHORT).show();
-                        }
+                    } catch (JSONException e) {
+                        Toast.makeText(requireActivity(), "", Toast.LENGTH_SHORT).show();
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                error -> Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show());
 
         // Add the request to the RequestQueue
         requestQueue.add(jsonObjectRequest);

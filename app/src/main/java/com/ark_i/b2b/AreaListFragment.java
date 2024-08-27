@@ -13,17 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.ark_i.b2b.Adapters.AdapterForAreaList;
 import com.ark_i.b2b.Models.ModelClassForAreaList;
 import com.ark_i.b2b.databinding.FragmentAreaListBinding;
 import com.ark_i.b2b.databinding.FragmentBranchListBinding;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class AreaListFragment extends Fragment {
 
-    FragmentAreaListBinding binding;
+
     AdapterForAreaList adapter;
     ArrayList<ModelClassForAreaList> list;
     RecyclerView recyclerView;
@@ -32,9 +35,8 @@ public class AreaListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        binding = FragmentAreaListBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+
+        return inflater.inflate(R.layout.fragment_area_list, container, false);
     }
 
     @Override
@@ -44,12 +46,18 @@ public class AreaListFragment extends Fragment {
 
 
         RecyclewViewSetUp(view);
-
-        binding.BtnMenu.setOnClickListener(v ->  navController.navigate(R.id.action_areaListFragment_to_branchListFragment));
-
+        dataadd();
 
 
 
+
+
+
+
+
+    }
+
+    void initializations(View view){
 
     }
 
@@ -62,4 +70,14 @@ public class AreaListFragment extends Fragment {
 
 
     }
+
+    private void dataadd() {
+        list.add(new ModelClassForAreaList("London","KFC - Manchester","13, Main St. Antony, UK"));
+        list.add(new ModelClassForAreaList("UK","DFC - Manchester","322, Main St. Antony, UK"));
+        list.add(new ModelClassForAreaList("Pairs","BFC - Manchester","233, Main St. Antony, UK"));
+        list.add(new ModelClassForAreaList("Lhaore","SFC - Manchester","173, Main St. Antony, UK"));
+    }
+
+
+
 }
