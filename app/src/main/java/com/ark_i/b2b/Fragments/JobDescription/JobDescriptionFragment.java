@@ -3,18 +3,20 @@ package com.ark_i.b2b.Fragments.JobDescription;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+
 import android.graphics.Bitmap;
-import android.graphics.pdf.PdfDocument;
 import android.graphics.pdf.PdfRenderer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -48,6 +50,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +64,7 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
     FragmentJobDescriptionBinding binding;
 
     GoogleMap mMap;
-    PdfRenderer pdfRenderer;
+
 
 
 
@@ -79,9 +85,6 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mappp);
 
@@ -120,7 +123,67 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
 
             }
         });
+
+//        int pdfResId =; // Replace with your PDF file name
+
+        // Get an InputStream to read the file
+//        InputStream pdfInputStream = getResources().openRawResource(pdfResId);
+
+        // Now you can use this InputStream to upload the PDF or perform any action
+
+        renderPdfPreview( R.raw.curriculumvitae);
     }
+    private File createTempPdfFile(int pdfResourceId) throws IOException {
+        // Get the input stream from the raw resource
+        InputStream inputStream = getResources().openRawResource(pdfResourceId);
+
+        // Create a temporary file
+        File tempFile = File.createTempFile("sample", ".pdf", getContext().getCacheDir());
+
+        // Write the input stream to the temporary file
+        FileOutputStream outputStream = new FileOutputStream(tempFile);
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, length);
+        }
+        outputStream.close();
+        inputStream.close();
+
+        return tempFile;
+    }
+
+    private void renderPdfPreview(int pdfResourceId) {
+        try {
+            // Copy the PDF from raw resource to a temporary file
+            File pdfFile = createTempPdfFile(pdfResourceId);
+
+            // Use PdfRenderer to render the PDF page
+            ParcelFileDescriptor fileDescriptor = ParcelFileDescriptor.open(pdfFile, ParcelFileDescriptor.MODE_READ_ONLY);
+            PdfRenderer pdfRenderer = new PdfRenderer(fileDescriptor);
+
+            // Open the first page of the PDF
+            PdfRenderer.Page page = pdfRenderer.openPage(0);
+
+            // Create a bitmap to render the PDF page into
+            Bitmap bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(), Bitmap.Config.ARGB_8888);
+
+            // Render the PDF page into the bitmap
+            page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+
+            // Set the bitmap to the ImageView to display the preview
+            binding.PDFIMAGE.setImageBitmap(bitmap);
+
+            // Close the page and PdfRenderer
+            page.close();
+            pdfRenderer.close();
+            fileDescriptor.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 
@@ -186,6 +249,7 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
             if (fileUri != null) {
                 switch (requestCode) {
                     case PICK_PDF_REQUEST:
+
                         Toast.makeText(requireActivity(), "PDF"+fileUri.toString(), Toast.LENGTH_SHORT).show();
                         break;
                     case PICK_IMAGE_REQUEST:
