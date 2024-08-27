@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_splashScreen_to_jobDescriptionFragment"
             app:destination="@id/jobDescriptionFragment" />
+        <action
+            android:id="@+id/action_splashScreen_to_areaListFragment"
+            app:destination="@id/areaListFragment" />
 
 
     </fragment>
@@ -95,4 +98,18 @@
         android:name="com.ark_i.b2b.Fragments.JobDescription.JobDescriptionFragment"
         android:label="fragment_job_description"
         tools:layout="@layout/fragment_job_description" />
+    <fragment
+        android:id="@+id/areaListFragment"
+        android:name="com.ark_i.b2b.AreaListFragment"
+        android:label="fragment_area_list"
+        tools:layout="@layout/fragment_area_list" >
+        <action
+            android:id="@+id/action_areaListFragment_to_branchListFragment"
+            app:destination="@id/branchListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/branchListFragment"
+        android:name="com.ark_i.b2b.BranchListFragment"
+        android:label="fragment_branch_list"
+        tools:layout="@layout/fragment_branch_list" />
 </navigation>

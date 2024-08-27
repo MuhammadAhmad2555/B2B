@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".BranchListFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/topbar"
+        android:padding="6dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/TvAreaList"
+        android:background="@drawable/searcbardesign"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:id="@+id/MeBaIc"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/EtSrJo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/circlevector"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:id="@+id/EtSrJo"
+            app:layout_constraintStart_toEndOf="@+id/MeBaIc"
+            android:hint="   Search"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:fontFamily="@font/poppinsregular"
+            android:textColorHint="@color/Gray"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="3dp"
+            android:lineHeight="21dp"
+            android:background="@drawable/remove_default_style"
+
+            />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TvAreaList"
+        app:layout_constraintTop_toBottomOf="@+id/topbar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Branches List"
+        android:fontFamily="@font/poppinsregular"
+        android:textFontWeight="700"
+        android:textStyle="bold"
+        android:lineHeight="24dp"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/DarkBlue"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/BrachListRecycleView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TvAreaList"
+        android:layout_height="wrap_content"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
