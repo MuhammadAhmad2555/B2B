@@ -13,22 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.ark_i.b2b.Adapters.AdapterForAreaList;
-import com.ark_i.b2b.Models.ModelClassForAreaList;
-import com.ark_i.b2b.databinding.FragmentAreaListBinding;
-import com.ark_i.b2b.databinding.FragmentBranchListBinding;
-
-import org.w3c.dom.Text;
+import com.ark_i.b2b.Adapters.AreaAdapter;
+import com.ark_i.b2b.Models.AreaAmModel;
 
 import java.util.ArrayList;
 
-public class AreaListFragment extends Fragment {
+public class AreaFragment extends Fragment {
 
 
-    AdapterForAreaList adapter;
-    ArrayList<ModelClassForAreaList> list;
+    AreaAdapter areaAdapter;
+    ArrayList<AreaAmModel> areaAmModels;
     RecyclerView recyclerView;
     NavController navController ;
 
@@ -62,20 +57,20 @@ public class AreaListFragment extends Fragment {
     }
 
     void RecyclewViewSetUp(View view){
-        recyclerView = view.findViewById(R.id.AreaListRecycleView);
+        recyclerView = view.findViewById(R.id.areaRecycleView);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        list = new ArrayList<>();
-        adapter = new AdapterForAreaList(requireContext(),list);
-        recyclerView.setAdapter(adapter);
+        areaAmModels = new ArrayList<>();
+        areaAdapter = new AreaAdapter(areaAmModels);
+        recyclerView.setAdapter(areaAdapter);
 
 
     }
 
     private void dataadd() {
-        list.add(new ModelClassForAreaList("London","KFC - Manchester","13, Main St. Antony, UK"));
-        list.add(new ModelClassForAreaList("UK","DFC - Manchester","322, Main St. Antony, UK"));
-        list.add(new ModelClassForAreaList("Pairs","BFC - Manchester","233, Main St. Antony, UK"));
-        list.add(new ModelClassForAreaList("Lhaore","SFC - Manchester","173, Main St. Antony, UK"));
+        areaAmModels.add(new AreaAmModel("London","KFC - Manchester","13, Main St. Antony, UK"));
+        areaAmModels.add(new AreaAmModel("UK","DFC - Manchester","322, Main St. Antony, UK"));
+        areaAmModels.add(new AreaAmModel("Pairs","BFC - Manchester","233, Main St. Antony, UK"));
+        areaAmModels.add(new AreaAmModel("Lhaore","SFC - Manchester","173, Main St. Antony, UK"));
     }
 
 

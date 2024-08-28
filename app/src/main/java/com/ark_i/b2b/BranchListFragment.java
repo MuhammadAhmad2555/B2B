@@ -12,12 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ark_i.b2b.Adapters.AdapterForAreaList;
 import com.ark_i.b2b.Adapters.AdapterForBranchList;
-import com.ark_i.b2b.Models.ModelClassForAreaList;
 import com.ark_i.b2b.Models.ModelClassForBranchList;
-import com.ark_i.b2b.databinding.FragmentBranchListBinding;
-import com.ark_i.b2b.databinding.FragmentDashboardBinding;
 
 import java.util.ArrayList;
 

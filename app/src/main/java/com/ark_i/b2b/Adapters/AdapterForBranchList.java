@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ark_i.b2b.Models.ModelClassForAreaList;
 import com.ark_i.b2b.Models.ModelClassForBranchList;
 import com.ark_i.b2b.R;
 

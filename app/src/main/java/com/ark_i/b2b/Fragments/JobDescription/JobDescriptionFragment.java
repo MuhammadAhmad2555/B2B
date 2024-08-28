@@ -3,12 +3,11 @@ package com.ark_i.b2b.Fragments.JobDescription;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-
 import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
@@ -29,8 +28,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.ark_i.b2b.Adapters.AdapterForNotes;
@@ -45,38 +42,29 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-
-
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 
 public class JobDescriptionFragment extends Fragment implements OnMapReadyCallback {
     FragmentJobDescriptionBinding binding;
 
     GoogleMap mMap;
-        ArrayList<ModelClassForNotes> list;
+    ArrayList<ModelClassForNotes> list;
     AdapterForNotes adapter;
     RecyclerView recyclerView;
-
-
 
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int PICK_PDF_REQUEST = 2;
     private static final int PERMISSION_REQUEST_CODE = 100;
-
 
 
     @Override
@@ -94,8 +82,6 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
         RecycleSetup(view);
 
 
-
-
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mappp);
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
@@ -105,26 +91,25 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
         binding.branchInfoBtn.setOnClickListener(v -> showPopupWindow());
         binding.JoMiBo.setOnClickListener(v -> {
 
-            if(getContext()!=null){
-                if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_MEDIA_IMAGES)
-                        != PackageManager.PERMISSION_GRANTED){
+
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_MEDIA_IMAGES)
+                        != PackageManager.PERMISSION_GRANTED) {
                     askPermission();
 
-                }else {
+                } else {
                     openGallery();
                 }
-            }
-
-
-
 
 
 
         });
         binding.BoxDoc.setOnClickListener(v -> {
-            if((ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) ){
+            Toast.makeText(requireActivity(), "CLICKED", Toast.LENGTH_SHORT).show();
+            if ((ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
                 openFilePicker();
-            }else {
+                Toast.makeText(requireActivity(), "YES", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireActivity(), "NOPERM", Toast.LENGTH_SHORT).show();
                 askPermission();
             }
 
@@ -135,11 +120,11 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
 
     }
 
-    void RecycleSetup(View view){
+    void RecycleSetup(View view) {
         recyclerView = view.findViewById(R.id.Recycleviewnotes);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         list = new ArrayList<>();
-        adapter = new AdapterForNotes(getContext(),list);
+        adapter = new AdapterForNotes(getContext(), list);
         recyclerView.setAdapter(adapter);
 
     }
@@ -148,7 +133,7 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
     private void renderPdfPreview(Uri pdfUri) {
         try {
             // Convert the Uri to a FileDescriptor
-            if(getContext()!=null){
+
                 ParcelFileDescriptor fileDescriptor = getContext().getContentResolver().openFileDescriptor(pdfUri, "r");
                 if (fileDescriptor != null) {
                     PdfRenderer pdfRenderer = new PdfRenderer(fileDescriptor);
@@ -170,7 +155,7 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
                     pdfRenderer.close();
                     fileDescriptor.close();
                 }
-            }
+
 
 
         } catch (IOException e) {
@@ -180,11 +165,15 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
 
 
     private void askPermission() {
-        if(getActivity()!=null){
+
+
             ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.READ_MEDIA_IMAGES},
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     PERMISSION_REQUEST_CODE);
-        }
+
+
+
+
 
 
     }
@@ -202,8 +191,7 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openGallery();
-            }
-            else {
+            } else {
                 askPermission();
                 Toast.makeText(requireActivity(), "PLEASE PROVIDE THE REQUIRED PERMISSION", Toast.LENGTH_LONG).show();
 
@@ -237,14 +225,11 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
         }
 
 
-
-
-
     }
 
 
     private void openGallery() {
-        if((ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)){
+        if ((ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, PICK_IMAGE_REQUEST);
             Toast.makeText(requireActivity(), "YES PERMISSION", Toast.LENGTH_SHORT).show();
@@ -274,7 +259,7 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
         // Get the display dimensions to calculate the center of the screen
         DisplayMetrics displayMetrics = new DisplayMetrics();
 
-            getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
 
         int screenWidth = displayMetrics.widthPixels;

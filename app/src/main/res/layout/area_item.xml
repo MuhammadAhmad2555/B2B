@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/searcbardesign"
+    android:layout_margin="10dp"
+    android:padding="5dp"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:id="@+id/ivCountry"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ivLocation"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/countryicon"
+        app:layout_constraintEnd_toStartOf="@+id/tvCountryName"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tvCountryName"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="London, Hackney"
+        android:textColor="@color/black"
+        android:textSize="11dp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/ivCountry"
+        app:layout_constraintStart_toEndOf="@+id/ivCountry"
+        app:layout_constraintTop_toTopOf="@+id/ivCountry" />
+
+
+    <ImageView
+        android:id="@+id/ivCompany"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+android:layout_marginEnd="10dp"
+        android:background="@drawable/branchicon"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCountryName"
+
+        app:layout_constraintEnd_toStartOf="@+id/tvCompanyName"
+        app:layout_constraintTop_toTopOf="@+id/tvCountryName" />
+
+    <TextView
+        android:id="@+id/tvCompanyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+
+        android:fontFamily="@font/poppinsregular"
+        android:text="KFC - Manchester"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivCompany"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivCompany" />
+
+
+    <ImageView
+        android:id="@+id/ivLocation"
+
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/locationicon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvLocation"
+        app:layout_constraintStart_toStartOf="@+id/ivCountry"
+        app:layout_constraintTop_toBottomOf="@+id/ivCountry" />
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/poppinsregular"
+
+        android:text="London, Hackney"
+        android:textColor="@color/black"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLocation"
+        app:layout_constraintStart_toEndOf="@+id/ivLocation"
+        app:layout_constraintTop_toTopOf="@+id/ivLocation" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
