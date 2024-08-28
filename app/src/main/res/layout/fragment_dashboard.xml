@@ -34,7 +34,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/EtSrJo"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:src="@drawable/circlevector"/>
+                    android:src="@drawable/ic_menu"/>
 
                 <EditText
                     android:layout_width="0dp"

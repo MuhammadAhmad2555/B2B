@@ -22,8 +22,8 @@
             android:id="@+id/action_splashScreen_to_jobDescriptionFragment"
             app:destination="@id/jobDescriptionFragment" />
         <action
-            android:id="@+id/action_splashScreen_to_areaListFragment"
-            app:destination="@id/areaListFragment" />
+            android:id="@+id/action_splashScreen_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
 
 
     </fragment>
@@ -112,4 +112,9 @@
         android:name="com.ark_i.b2b.BranchListFragment"
         android:label="fragment_branch_list"
         tools:layout="@layout/fragment_branch_list" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.ark_i.b2b.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
 </navigation>
