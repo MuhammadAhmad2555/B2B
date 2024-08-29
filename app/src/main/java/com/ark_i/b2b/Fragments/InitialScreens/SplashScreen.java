@@ -35,7 +35,7 @@ public class SplashScreen extends Fragment {
         // Navigate after a delay
         new Handler().postDelayed(() -> {
             if (navController.getCurrentDestination() != null) {
-                navController.navigate(R.id.action_splashScreen_to_notificationFragment);
+                navController.navigate(R.id.action_splashScreen_to_jobDescriptionFragment);
             } else {
                 Log.e("NavigationError", "NavController has no current destination.");
             }

@@ -22,14 +22,12 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/topbar"
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/searcbardesign"
                 android:padding="6dp"
-
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -39,9 +37,9 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/circlebackground"
                     android:padding="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnBranchInfo"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="@+id/btnBranchInfo">
 
                     <ImageView
                         android:layout_width="30dp"
@@ -53,54 +51,36 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/branchInfoBtn"
+                <Button
+                    android:id="@+id/btnBranchInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/createbtntwo"
-                    android:padding="7dp"
+                    android:paddingHorizontal="12dp"
+                    android:textSize="12sp"
+                    android:textAllCaps="false"
+                    
+                    android:text="Branch Info"
+                    android:drawableEnd="@drawable/dropdownarrow"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
 
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/Tv1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="2dp"
-                        android:fontFamily="@font/poppinsregular"
-                        android:gravity="center"
-                        android:text="Branch Info"
-                        android:textColor="@color/Gray"
-                        android:textFontWeight="600"
-                        android:textSize="12sp"
-
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/DrAr"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/DrAr"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="3dp"
-                        android:src="@drawable/dropdownarrow"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </Button>
+
+
+
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/TvJoDe"
+                android:id="@+id/tvJobDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -127,7 +107,7 @@
                 android:padding="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/TvJoDe">
+                app:layout_constraintTop_toBottomOf="@+id/tvJobDescription">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/lineone"
@@ -136,7 +116,6 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -157,7 +136,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/TvJoIdNu"
+                        android:id="@+id/tvJobDescId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="EF73091"
@@ -175,14 +154,14 @@
 
                         android:textColor="@color/black"
                         android:textSize="13sp"
-                        app:layout_constraintEnd_toStartOf="@+id/TvJoStNu"
+                        app:layout_constraintEnd_toStartOf="@+id/tvJobDescTime"
                         app:layout_constraintTop_toTopOf="parent"
 
 
                         />
 
                     <TextView
-                        android:id="@+id/TvJoStNu"
+                        android:id="@+id/tvJobDescTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Job Timeout"
@@ -220,9 +199,9 @@
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
+                        android:id="@+id/tvJobRoleDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:text="Electrician"
                         android:textColor="@color/black"
                         android:textSize="13sp"
@@ -230,7 +209,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/TvJoTy"
 
-                        app:layout_constraintVertical_bias="1.0" />
+                        />
 
                     <TextView
                         android:id="@+id/TvJoDi"
@@ -242,10 +221,10 @@
                         android:textSize="13sp"
 
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/TvJoDiNu" />
+                        app:layout_constraintEnd_toStartOf="@+id/tvJobDistanceDecs" />
 
                     <TextView
-                        android:id="@+id/TvJoDiNu"
+                        android:id="@+id/tvJobDistanceDecs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -301,7 +280,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/TvJoLoNu"
+                        android:id="@+id/tvJobLocationAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="123,MAin st.antony uk"
@@ -374,7 +353,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/MaRoBo">
 
                 <TextView
-                    android:id="@+id/TvJoDec"
+                    android:id="@+id/tvJobDescriptionc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -391,7 +370,7 @@
                     />
 
                 <EditText
-                    android:id="@+id/EdJoDe"
+                    android:id="@+id/etJobDescription"
                     android:layout_width="match_parent"
                     android:layout_height="125dp"
                     android:layout_marginStart="10dp"
@@ -403,7 +382,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/TvJoDec" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvJobDescriptionc" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -433,81 +412,18 @@
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ImageContainer"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="400dp"
                     android:layout_marginTop="10dp"
                     app:layout_constraintTop_toBottomOf="@+id/TvJoReMe">
 
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/imageslineone"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/mediaRecycleView"
+                        tools:listitem="@layout/media_item"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:id="@+id/imgone"
-                            android:layout_width="0dp"
-                            android:layout_height="180dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:background="@color/offw99hite"
-                            android:scaleType="fitXY"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/imgtwo"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/imgtwo"
-                            android:layout_width="0dp"
-                            android:layout_height="180dp"
-                            android:layout_marginEnd="10dp"
-                            android:background="@color/offw99hite"
-                            android:scaleType="fitXY"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/imgone"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintTop_toBottomOf="@+id/imageslineone">
-
-                        <ImageView
-                            android:id="@+id/imgthree"
-                            android:layout_width="0dp"
-                            android:layout_height="180dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:background="@color/offw99hite"
-                            android:scaleType="fitXY"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/imgfour"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-
-                        <ImageView
-                            android:id="@+id/imgfour"
-                            android:layout_width="0dp"
-                            android:layout_height="180dp"
-                            android:layout_marginEnd="10dp"
-                            android:background="@color/offw99hite"
-                            android:scaleType="fitXY"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/imgthree"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:layout_height="match_parent" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -541,7 +457,6 @@
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold"
-
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
 
@@ -549,7 +464,7 @@
 
 
                 <ImageView
-                    android:id="@+id/PDFIMAGE"
+                    android:id="@+id/ivDocuments"
                     android:layout_width="300dp"
                     android:layout_height="200dp"
                     app:layout_constraintBottom_toBottomOf="parent"

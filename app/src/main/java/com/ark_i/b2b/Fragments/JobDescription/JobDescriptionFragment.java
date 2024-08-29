@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
@@ -15,14 +14,19 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +35,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.ark_i.b2b.Adapters.AdapterForNotes;
+import com.ark_i.b2b.Adapters.JobRequestMediaAdapter;
+import com.ark_i.b2b.Models.JobRequestMediaModelClass;
 import com.ark_i.b2b.Models.ModelClassForNotes;
 import com.ark_i.b2b.R;
 import com.ark_i.b2b.databinding.FragmentJobDescriptionBinding;
@@ -57,21 +63,34 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
     FragmentJobDescriptionBinding binding;
 
     GoogleMap mMap;
-    ArrayList<ModelClassForNotes> list;
-    AdapterForNotes adapter;
-    RecyclerView recyclerView;
+    List<ModelClassForNotes> modelClassForNotesList;
+    List<JobRequestMediaModelClass> requestMediaModelClassList;
+    AdapterForNotes adapterNotes;
+    JobRequestMediaAdapter jobRequestMediaAdapter;
+    RecyclerView recyclerViewNotes, recyclerViewRequestMedia;
 
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int PICK_PDF_REQUEST = 2;
     private static final int PERMISSION_REQUEST_CODE = 100;
 
+    ImageView PDF_container;
+    Button BranchInfoBtn;
+
+    ConstraintLayout  imgaesContainer;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentJobDescriptionBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+
+        View view = inflater.inflate(R.layout.fragment_job_description, container, false);
+        RecyclewViewSetUp(view);
+        return view;
+    }
+
+    private void RecyclewViewSetUp(View view) {
+
     }
 
 
@@ -80,30 +99,58 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
         super.onViewCreated(view, savedInstanceState);
 
         RecycleSetup(view);
+        RecycleSetupforimages(view);
 
 
+        initializations(view);
+
+
+        OnClickListener();
+
+
+
+    }
+    void initializations(View view){
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mappp);
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
-
         }
-//--------------------------ONCLICKS--------------------------------------
-        binding.branchInfoBtn.setOnClickListener(v -> showPopupWindow());
-        binding.JoMiBo.setOnClickListener(v -> {
 
 
-                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_MEDIA_IMAGES)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    askPermission();
+        PDF_container = view.findViewById(R.id.ivDocuments);
+        BranchInfoBtn = view.findViewById(R.id.btnBranchInfo);
+        imgaesContainer = view.findViewById(R.id.ImageContainer);
 
-                } else {
-                    openGallery();
-                }
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+    void OnClickListener(){
+        BranchInfoBtn.setOnClickListener(v -> showPopupWindow());
+        imgaesContainer.setOnClickListener(v -> {
+
+            Toast.makeText(requireActivity(), "CLICKED", Toast.LENGTH_SHORT).show();
+            if ((ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
+                openGallery();
+                Toast.makeText(requireActivity(), "YES", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireActivity(), "NOPERM", Toast.LENGTH_SHORT).show();
+                askPermission();
+            }
 
 
 
         });
-        binding.BoxDoc.setOnClickListener(v -> {
+        PDF_container.setOnClickListener(v -> {
             Toast.makeText(requireActivity(), "CLICKED", Toast.LENGTH_SHORT).show();
             if ((ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)) {
                 openFilePicker();
@@ -115,47 +162,43 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
 
         });
 
-//--------------------------------------------------------------------------
-
-
     }
 
     void RecycleSetup(View view) {
-        recyclerView = view.findViewById(R.id.Recycleviewnotes);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        list = new ArrayList<>();
-        adapter = new AdapterForNotes(getContext(), list);
-        recyclerView.setAdapter(adapter);
+        recyclerViewNotes = view.findViewById(R.id.Recycleviewnotes);
+        recyclerViewNotes.setLayoutManager(new LinearLayoutManager(getContext()));
+        modelClassForNotesList = new ArrayList<>();
+        adapterNotes = new AdapterForNotes(modelClassForNotesList);
+        recyclerViewNotes.setAdapter(adapterNotes);
 
     }
 
 
     private void renderPdfPreview(Uri pdfUri) {
         try {
-            // Convert the Uri to a FileDescriptor
 
-                ParcelFileDescriptor fileDescriptor = getContext().getContentResolver().openFileDescriptor(pdfUri, "r");
-                if (fileDescriptor != null) {
-                    PdfRenderer pdfRenderer = new PdfRenderer(fileDescriptor);
 
-                    // Open the first page of the PDF
-                    PdfRenderer.Page page = pdfRenderer.openPage(0);
+            ParcelFileDescriptor fileDescriptor = getContext().getContentResolver().openFileDescriptor(pdfUri, "r");
+            if (fileDescriptor != null) {
+                PdfRenderer pdfRenderer = new PdfRenderer(fileDescriptor);
 
-                    // Create a bitmap to render the PDF page into
-                    Bitmap bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(), Bitmap.Config.ARGB_8888);
 
-                    // Render the PDF page into the bitmap
-                    page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+                PdfRenderer.Page page = pdfRenderer.openPage(0);
 
-                    // Set the bitmap to the ImageView to display the preview
-                    binding.PDFIMAGE.setImageBitmap(bitmap);
 
-                    // Close the page and PdfRenderer
-                    page.close();
-                    pdfRenderer.close();
-                    fileDescriptor.close();
-                }
+                Bitmap bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(), Bitmap.Config.ARGB_8888);
 
+
+                page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+
+
+                PDF_container.setImageBitmap(bitmap);
+
+
+                page.close();
+                pdfRenderer.close();
+                fileDescriptor.close();
+            }
 
 
         } catch (IOException e) {
@@ -167,24 +210,19 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
     private void askPermission() {
 
 
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    PERMISSION_REQUEST_CODE);
-
-
-
-
+        ActivityCompat.requestPermissions(getActivity(),
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                PERMISSION_REQUEST_CODE);
 
 
     }
 
     private void openFilePicker() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.setType("application/pdf"); // Filter to show only PDF files
+        intent.setType("application/pdf");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(intent, PICK_PDF_REQUEST);
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -200,11 +238,9 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
         }
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == getActivity().RESULT_OK && data != null) {
             Uri fileUri = data.getData();
             if (fileUri != null) {
@@ -214,8 +250,9 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
 
                         break;
                     case PICK_IMAGE_REQUEST:
-
-                        Picasso.get().load(fileUri).into(binding.imgone);
+                        requestMediaModelClassList.add(new JobRequestMediaModelClass(fileUri.toString()));
+                        Toast.makeText(getActivity(), ""+fileUri.toString(), Toast.LENGTH_SHORT).show();
+//                        Picasso.get().load(fileUri).into(binding.imgone);
                         break;
                     default:
                         Toast.makeText(getActivity(), "Unsupported file type", Toast.LENGTH_SHORT).show();
@@ -227,13 +264,13 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
 
     }
 
-
     private void openGallery() {
-        if ((ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, PICK_IMAGE_REQUEST);
             Toast.makeText(requireActivity(), "YES PERMISSION", Toast.LENGTH_SHORT).show();
-        }
+
+
 
 
     }
@@ -254,7 +291,7 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
         int topMarginPx = dpToPx(10); // Margin between the anchor view and the popup
 
         // Get the anchor view (button) from the layout
-        View anchorView = binding.branchInfoBtn;
+        View anchorView = BranchInfoBtn;
 
         // Get the display dimensions to calculate the center of the screen
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -283,7 +320,6 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
                 yPos); // Y position (below the anchor view plus top margin)
     }
 
-    // Helper method to convert dp to pixels
     private int dpToPx(int dp) {
         float density = getResources().getDisplayMetrics().density;
         return Math.round(dp * density);
@@ -295,18 +331,18 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
-        // Define origin and destination
+
         LatLng origin = new LatLng(31.471632, 74.451084);
         LatLng destination = new LatLng(31.472305, 74.463701);
 
-        // Add markers for origin and destination
+
         mMap.addMarker(new MarkerOptions().position(origin).title("Start Point").icon(BitmapDescriptorFactory.fromResource(R.drawable.vectororign)));
         mMap.addMarker(new MarkerOptions().position(destination).title("End Point").icon(BitmapDescriptorFactory.fromResource(R.drawable.vectordestination)));
 
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(origin, 15f));
 
-        // Get directions from origin to destination
+
         getDirections(origin, destination);
     }
 
@@ -316,7 +352,7 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
                 "&destination=" + destination.latitude + "," + destination.longitude +
                 "&mode=driving&key=AIzaSyC_XTc_Snlg04x2F1av5B2jhpdHEFLkJ4o";
 
-        // Request a JSON response from the provided URL
+
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, url, null,
@@ -346,7 +382,7 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
         requestQueue.add(jsonObjectRequest);
     }
 
-    // Method to decode polyline points
+
     private List<LatLng> decodePolyline(String encoded) {
         List<LatLng> poly = new ArrayList<>();
         int index = 0, len = encoded.length();
@@ -378,4 +414,17 @@ public class JobDescriptionFragment extends Fragment implements OnMapReadyCallba
         }
         return poly;
     }
+
+
+    void RecycleSetupforimages(View view) {
+        recyclerViewRequestMedia = view.findViewById(R.id.mediaRecycleView);
+        GridLayoutManager gridLayout = new GridLayoutManager(getContext(),2);
+        recyclerViewRequestMedia.setLayoutManager(gridLayout);
+        requestMediaModelClassList = new ArrayList<>();
+        jobRequestMediaAdapter = new JobRequestMediaAdapter(requestMediaModelClassList);
+        recyclerViewRequestMedia.setAdapter(jobRequestMediaAdapter);
+
+    }
+
+
 }

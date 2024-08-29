@@ -13,15 +13,18 @@ import com.ark_i.b2b.Models.ModelClassForNotes;
 import com.ark_i.b2b.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdapterForNotes extends RecyclerView.Adapter<AdapterForNotes.MyViewHolder> {
-    Context context;
-    ArrayList<ModelClassForNotes> list;
-    public AdapterForNotes(Context context, ArrayList<ModelClassForNotes> list) {
-        this.context = context;
+
+    List<ModelClassForNotes> list;
+
+    public AdapterForNotes(List<ModelClassForNotes> list) {
         this.list = list;
         addDefaultData();
     }
+
+
 
     private void addDefaultData() {
         list.add(new ModelClassForNotes("Lorem ipsum dolor sit amet consectetur. Porta nulla vel integer nulla viverra integer. Nisl lectus ut semper nunc quam pulvinar nec tortor. ","10:00 03-09-2024"));
@@ -34,7 +37,7 @@ public class AdapterForNotes extends RecyclerView.Adapter<AdapterForNotes.MyView
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.notesdesign,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notesdesign,parent,false);
         return new AdapterForNotes.MyViewHolder(view);
     }
 
